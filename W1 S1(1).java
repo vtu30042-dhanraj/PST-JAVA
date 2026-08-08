@@ -1,24 +1,42 @@
+import java.io.*;
 import java.util.*;
-
-class Player {
-	String name;
-	int score;
-
-	Player(String name, int score) {
-		this.name = name;
-		this.score = score;
-	}
+interface PerformOperation {
+ boolean check(int a);
+}
+class MyMath {
+ public static boolean checker(PerformOperation p, int num) {
+  return p.check(num);
+ }
+PerformOperation isOdd() {
+    return n -> n % 2 != 0;
 }
 
-class Checker implements Comparator<Player> {
-    @Override
-    public int compare(Player a, Player b) {
-        // Sort by score in descending order
-        if (a.score != b.score) {
-            return b.score - a.score;
+PerformOperation isPrime() {
+    return n -> {
+        if (n < 2)
+            return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0)
+                return false;
+        }
+        return true;
+    };
+}
+
+PerformOperation isPalindrome() {
+    return n -> {
+        int original = n;
+        int reverse = 0;
+
+        while (n > 0) {
+            reverse = reverse * 10 + (n % 10);
+            n /= 10;
         }
 
-        // If scores are equal, sort by name in ascending alphabetical order
-        return a.name.compareTo(b.name);
-    }
+        return original == reverse;
+    };
+  }
 }
+   // Write your code here
+
+public class Solution {
